@@ -1373,6 +1373,66 @@ describe('<BarChart />', () => {
       expect(container.querySelectorAll('.recharts-rectangle')).toHaveLength(4);
     });
 
+    // https://github.com/recharts/recharts/issues/6235
+    test('Stacked bars with all 0 values: Bar component and YAxis ticks still render', () => {
+      const allZeroData = [
+        { name: 'Page A', uv: 0, pv: 0 },
+        { name: 'Page B', uv: 0, pv: 0 },
+        { name: 'Page C', uv: 0, pv: 0 },
+      ];
+      const { container } = render(
+        <BarChart width={400} height={300} data={allZeroData}>
+          <YAxis />
+          <Bar dataKey="uv" stackId="test" fill="#ff7300" isAnimationActive={false} />
+          <Bar dataKey="pv" stackId="test" fill="#387908" isAnimationActive={false} />
+        </BarChart>,
+      );
+
+      // Zero-height bars without custom shapes are filtered, but the Bar component itself still renders
+      expect(container.querySelectorAll('.recharts-bar-rectangle')).toHaveLength(0);
+      expect(container.querySelectorAll('.recharts-bar')).toHaveLength(2);
+      // YAxis should still produce ticks even when all stacked values are 0
+      expect(container.querySelectorAll('.recharts-yAxis .recharts-cartesian-axis-tick')).not.toHaveLength(0);
+    });
+
+    // https://github.com/recharts/recharts/issues/6235
+    test('Renders stacked bars with custom shape when all values are 0', () => {
+      const allZeroData = [
+        { name: 'Page A', uv: 0, pv: 0 },
+        { name: 'Page B', uv: 0, pv: 0 },
+      ];
+      // Returns a zero-size rect, sufficient to prove the shape callback was invoked
+      const customShape = vi.fn(() => <rect data-testid="custom-shape" />);
+      const { container } = render(
+        <BarChart width={400} height={300} data={allZeroData}>
+          <YAxis />
+          <Bar dataKey="uv" stackId="test" shape={customShape} isAnimationActive={false} />
+        </BarChart>,
+      );
+
+      expect(customShape).toHaveBeenCalled();
+      expect(container.querySelectorAll('[data-testid="custom-shape"]')).toHaveLength(2);
+    });
+
+    // https://github.com/recharts/recharts/issues/6235
+    test('Vertical stacked bars with all 0 values still render custom shapes', () => {
+      const allZeroData = [
+        { name: 'Page A', uv: 0, pv: 0 },
+        { name: 'Page B', uv: 0, pv: 0 },
+      ];
+      const customShape = vi.fn(() => <rect data-testid="custom-shape" />);
+      const { container } = render(
+        <BarChart width={400} height={300} data={allZeroData} layout="vertical">
+          <XAxis type="number" />
+          <YAxis dataKey="name" type="category" />
+          <Bar dataKey="uv" stackId="test" shape={customShape} isAnimationActive={false} />
+        </BarChart>,
+      );
+
+      expect(customShape).toHaveBeenCalled();
+      expect(container.querySelectorAll('[data-testid="custom-shape"]')).toHaveLength(2);
+    });
+
     test('renders nothing if barSize is not specified in a numerical XAxis', () => {
       const { container } = render(
         <BarChart width={100} height={50} data={onePointData}>
