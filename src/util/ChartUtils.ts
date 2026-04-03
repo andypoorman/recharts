@@ -606,7 +606,7 @@ export const getDomainOfStackGroups = (
   startIndex: number,
   endIndex: number,
 ): NumberDomain | undefined => {
-  if (stackGroups == null) {
+  if (stackGroups == null || Object.keys(stackGroups).length === 0) {
     return undefined;
   }
   return makeDomainFinite(

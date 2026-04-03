@@ -313,6 +313,27 @@ describe('getDomainOfStackGroups', () => {
 
     expect(getDomainOfStackGroups(stackData, 0, 1)).toEqual([0, 0]);
   });
+
+  // https://github.com/recharts/recharts/issues/6235
+  it('returns undefined for empty stack groups', () => {
+    expect(getDomainOfStackGroups({}, 0, 1)).toBeUndefined();
+  });
+
+  // https://github.com/recharts/recharts/issues/6235
+  it('returns [0, 0] when all stacked values are zero', () => {
+    stackData = {
+      a: {
+        stackedData: [
+          [
+            [0, 0],
+            [0, 0],
+          ],
+        ],
+      },
+    };
+
+    expect(getDomainOfStackGroups(stackData, 0, 1)).toEqual([0, 0]);
+  });
 });
 
 describe('MIN_VALUE_REG ', () => {
