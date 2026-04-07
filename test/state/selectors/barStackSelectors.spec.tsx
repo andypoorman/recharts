@@ -51,37 +51,37 @@ describe('BarStack Selectors', () => {
         expect.objectContaining({
           x: 8.166666666666668,
           y: 187.39999999999998,
-          width: 10,
+          width: 11,
           height: 7.600000000000023,
         }),
         expect.objectContaining({
           x: 39.833333333333336,
           y: 189.3,
-          width: 10,
+          width: 11,
           height: 5.699999999999989,
         }),
         expect.objectContaining({
           x: 71.50000000000001,
           y: 189.3,
-          width: 10,
+          width: 11,
           height: 5.699999999999989,
         }),
         expect.objectContaining({
           x: 103.16666666666667,
           y: 191.2,
-          width: 10,
+          width: 11,
           height: 3.8000000000000114,
         }),
         expect.objectContaining({
           x: 134.83333333333334,
           y: 189.718,
-          width: 10,
+          width: 11,
           height: 5.282000000000011,
         }),
         expect.objectContaining({
           x: 166.5,
           y: 191.409,
-          width: 10,
+          width: 11,
           height: 3.591000000000008,
         }),
       ]);
@@ -93,37 +93,37 @@ describe('BarStack Selectors', () => {
         expect.objectContaining({
           x: 8.166666666666668,
           y: 141.8,
-          width: 10,
+          width: 11,
           height: 45.599999999999966,
         }),
         expect.objectContaining({
           x: 39.833333333333336,
           y: 102.52699999999999,
-          width: 10,
+          width: 11,
           height: 86.77300000000002,
         }),
         expect.objectContaining({
           x: 71.50000000000001,
           y: 162.738,
-          width: 10,
+          width: 11,
           height: 26.562000000000012,
         }),
         expect.objectContaining({
           x: 103.16666666666667,
           y: 5,
-          width: 10,
+          width: 11,
           height: 186.2,
         }),
         expect.objectContaining({
           x: 134.83333333333334,
           y: 115.466,
-          width: 10,
+          width: 11,
           height: 74.252,
         }),
         expect.objectContaining({
           x: 166.5,
           y: 100.209,
-          width: 10,
+          width: 11,
           height: 91.19999999999999,
         }),
       ]);
@@ -132,12 +132,12 @@ describe('BarStack Selectors', () => {
     test('selectStackRects should select edges of all rectangles in this stack', () => {
       const { spy } = renderTestCase(state => selectStackRects(state, 'mystackid', false));
       expectLastCalledWith(spy, [
-        { height: 53.19999999999999, width: 10, x: 8.166666666666668, y: 141.8 },
-        { height: 92.47300000000001, width: 10, x: 39.833333333333336, y: 102.52699999999999 },
-        { height: 32.262, width: 10, x: 71.50000000000001, y: 162.738 },
-        { height: 190, width: 10, x: 103.16666666666667, y: 5 },
-        { height: 79.534, width: 10, x: 134.83333333333334, y: 115.466 },
-        { height: 94.791, width: 10, x: 166.5, y: 100.209 },
+        { height: 53.19999999999999, width: 11, x: 8.166666666666668, y: 141.8 },
+        { height: 92.47300000000001, width: 11, x: 39.833333333333336, y: 102.52699999999999 },
+        { height: 32.262, width: 11, x: 71.50000000000001, y: 162.738 },
+        { height: 190, width: 11, x: 103.16666666666667, y: 5 },
+        { height: 79.534, width: 11, x: 134.83333333333334, y: 115.466 },
+        { height: 94.791, width: 11, x: 166.5, y: 100.209 },
       ]);
     });
   });
